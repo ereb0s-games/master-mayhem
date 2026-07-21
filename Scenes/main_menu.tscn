@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bb3vlcyf7eo07"]
+
+[ext_resource type="Script" uid="uid://dtvsc07qianv6" path="res://Scripts/main_menu.gd" id="1_48xlc"]
+[ext_resource type="FontFile" uid="uid://s8hq12jqt81e" path="res://Assets/Tapestry-Regular.ttf" id="2_1ehe0"]
+
+[node name="MainMenu" type="Control" unique_id=1133035769]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_48xlc")
+
+[node name="MainCanvas" type="CanvasLayer" parent="." unique_id=1148620466]
+
+[node name="Camera2D" type="Camera2D" parent="MainCanvas" unique_id=1075370975]
+position = Vector2(576, 324)
+
+[node name="MainVBOX" type="VBoxContainer" parent="MainCanvas" unique_id=1516892135]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="MainCanvas/MainVBOX" unique_id=2121465562]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1ehe0")
+theme_override_font_sizes/font_size = 100
+text = "Master Mayhem"
+
+[node name="PlayButton" type="Button" parent="MainCanvas/MainVBOX" unique_id=1019851259]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1ehe0")
+theme_override_font_sizes/font_size = 50
+text = "Play"
+flat = true
+
+[node name="QuitButton" type="Button" parent="MainCanvas/MainVBOX" unique_id=1008428551]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1ehe0")
+theme_override_font_sizes/font_size = 50
+text = "Quit"
+flat = true
+
+[connection signal="pressed" from="MainCanvas/MainVBOX/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainCanvas/MainVBOX/QuitButton" to="." method="_on_quit_button_pressed"]

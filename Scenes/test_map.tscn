@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bg55p3nakoa8u"]
+
+[ext_resource type="Script" uid="uid://b56tirccgvl6" path="res://Scripts/test_map.gd" id="1_8xpg0"]
+[ext_resource type="PackedScene" uid="uid://bqwxh2peptux1" path="res://Scenes/player.tscn" id="1_orl8w"]
+[ext_resource type="Script" uid="uid://bbc2q8smbfv8" path="res://Scripts/deathBox.gd" id="2_orl8w"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_4wuf8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s02eq"]
+size = Vector2(1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_phepx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8xpg0"]
+
+[node name="Test map" type="Node2D" unique_id=2074517626]
+script = ExtResource("1_8xpg0")
+
+[node name="Player" parent="." unique_id=1799311247 groups=["Player"] instance=ExtResource("1_orl8w")]
+position = Vector2(1, -98)
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1156364410]
+
+[node name="FloorMesh" type="MeshInstance2D" parent="Floor" unique_id=994314979]
+scale = Vector2(5000, 50)
+mesh = SubResource("QuadMesh_4wuf8")
+
+[node name="FloorColl" type="CollisionShape2D" parent="Floor" unique_id=1509424366]
+position = Vector2(7.2717667e-06, 0)
+scale = Vector2(5000, 50)
+shape = SubResource("RectangleShape2D_s02eq")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1947644920]
+position = Vector2(-175, -272)
+scale = Vector2(100, 100)
+mesh = SubResource("QuadMesh_phepx")
+
+[node name="Label" type="Label" parent="." unique_id=657898503]
+offset_left = -225.0
+offset_top = -325.0
+offset_right = -125.0
+offset_bottom = -223.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "I need to see if i'm actually moving."
+autowrap_mode = 3
+clip_text = true
+
+[node name="DeathBox" type="Area2D" parent="." unique_id=815050670]
+position = Vector2(10.9999695, 1081)
+scale = Vector2(1000, 50)
+script = ExtResource("2_orl8w")
+
+[node name="DeathColl" type="CollisionShape2D" parent="DeathBox" unique_id=416682746]
+shape = SubResource("RectangleShape2D_8xpg0")
+
+[connection signal="body_entered" from="DeathBox" to="DeathBox" method="_on_body_entered"]

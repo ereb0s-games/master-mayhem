@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dw42106a08br4"]
+
+[ext_resource type="Script" uid="uid://ge5nepcc1lu5" path="res://addons/pixel art plugin/pixelart.gd" id="1_qfl5n"]
+
+[node name="EditorPlugin" type="EditorPlugin" unique_id=2114235519]
+
+[node name="Pixelart" type="TextureRect" parent="." unique_id=522852126]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_qfl5n")
