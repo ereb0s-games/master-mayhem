@@ -13,16 +13,19 @@ var is_dashing = false
 @export var dash_force = 5000.0 
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -400.0
+@export_category("Combat")
+@export var weapon_scene: PackedScene = null
 
 func _ready():
 	get_tree().root.size_changed.connect(update_zoom)
 	update_zoom()
 	# Make sure the timer signal is connected in the editor or here:
 	dash_cooldown.timeout.connect(_on_dash_timer_timeout)
+	get_tree().paused = false
 
 func update_zoom():
-	if DisplayServer.window_get_mode() >= 2: # Maximize or Fullscreen
-		Cam.zoom = Vector2(1, 1)
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN: # Maximize or Fullscreen
+		Cam.zoom = Vector2(4, 4)
 	else:
 		Cam.zoom = Vector2(0.5, 0.5)
 
@@ -63,6 +66,15 @@ func _physics_process(delta: float) -> void:
 		perform_dash(direction)
 	
 	move_and_slide()
+	
+	# CRITICAL: COMBAT SYSTEM
+	var weapon_spawn_left = $"weapon_spawn_left"
+	var weapon_spawn_right = $"weapon_spawn_right"
+	if Input.is_action_just_pressed("attack"):
+		if weapon_scene == null:
+			return
+		weapon_spawn_left.add_child(weapon_scene.instantiate())
+	# CRITICAL: END OF COMBAT SYSTEM CODE
 
 func perform_dash(dir):
 	if dir == 0: return 

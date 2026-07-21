@@ -30,7 +30,7 @@ anim_speed_max = 1.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1799311247]
 script = ExtResource("1_cvnsp")
-dash_force = 5000.0
+weapon_scene = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=836782482]
 texture = ExtResource("2_6t5aa")
@@ -69,6 +69,7 @@ visible = false
 script = ExtResource("4_vgqql")
 
 [node name="ColorRect" type="ColorRect" parent="DeathScreen" unique_id=370810416]
+process_mode = 3
 offset_left = -576.0
 offset_top = -324.0
 offset_right = 576.0
@@ -78,6 +79,7 @@ size_flags_vertical = 3
 color = Color(0, 0, 0, 0.5882353)
 
 [node name="DeathScaler" type="VBoxContainer" parent="DeathScreen" unique_id=1696489446]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -92,6 +94,7 @@ size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="DiedText" type="Label" parent="DeathScreen/DeathScaler" unique_id=1749213853]
+process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
@@ -99,8 +102,15 @@ theme_override_font_sizes/font_size = 100
 text = "You Died"
 
 [node name="Main Menu" type="Button" parent="DeathScreen/DeathScaler" unique_id=741156176]
+process_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Main Menu"
+
+[node name="weapon_spawn_left" type="Marker2D" parent="." unique_id=477128107]
+position = Vector2(-125, 1)
+
+[node name="weapon_spawn_right" type="Marker2D" parent="." unique_id=1055733024]
+position = Vector2(125, 1)
 
 [connection signal="pressed" from="DeathScreen/DeathScaler/Main Menu" to="DeathScreen" method="_on_main_menu_pressed"]
