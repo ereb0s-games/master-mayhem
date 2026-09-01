@@ -1,0 +1,39 @@
+name: Export Issues to JSON
+
+on:
+  # Re-run whenever issues change
+  issues:
+    types: [opened, edited, closed, reopened, labeled, unlabeled]
+  # Also run on a daily schedule
+  schedule:
+    - cron: '0 6 * * *'
+  # And allow manual runs
+  workflow_dispatch:
+
+permissions:
+  contents: write   # needed to commit the file back
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Export issues to issues.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue list \
+            --repo "$GITHUB_REPOSITORY" \
+            --state all \
+            --limit 1000 \
+            --json number,title,state,labels,assignees,author,createdAt,updatedAt,body \
+            > issues.json
+
+      - name: Commit the file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add issues.json
+          git diff --staged --quiet || git commit -m "Update issues.json"
+          git push
