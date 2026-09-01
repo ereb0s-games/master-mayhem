@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write   # needed to commit the file back
+  issues: read
 
 jobs:
   export:
