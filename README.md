@@ -1,5 +1,8 @@
 # Sovereign Gods ⚔️
 
+![GitHub Issues](https://img.shields.io/github/issues/ereb0s-games/master-mayhem)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/ereb0s-games/master-mayhem/latest)
+
 > "Sculpt nothing into something, something worth suffering for."
 
 A fast, momentum-based multiplayer combat game built in the **Godot Engine** by [Erebos Games](https://github.com/Ereb0s-Games). Master your movement, master your blade, master the mayhem.
