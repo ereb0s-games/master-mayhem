@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var dash_cooldown = $DashTimer
 @onready var dash_particles = $DashParticles
 
+var last_dir
+var direction
 var can_dash = true
 var store_jump = false
 var is_dashing = false
@@ -17,17 +19,16 @@ var is_dashing = false
 @export var weapon_scene: PackedScene = null
 
 func _ready():
-	get_tree().root.size_changed.connect(update_zoom)
-	update_zoom()
+	Cam.zoom = Vector2(0.3, 0.3)
 	# Make sure the timer signal is connected in the editor or here:
 	dash_cooldown.timeout.connect(_on_dash_timer_timeout)
 	get_tree().paused = false
 
-func update_zoom():
-	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN: # Maximize or Fullscreen
-		Cam.zoom = Vector2(4, 4)
-	else:
-		Cam.zoom = Vector2(0.5, 0.5)
+#func update_zoom():
+#	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN: # Maximize or Fullscreen
+#		Cam.zoom = Vector2(4, 4)
+#	else:
+#		Cam.zoom = Vector2(0.5, 0.5)
 
 func _physics_process(delta: float) -> void:
 	if Globals.PlrHealth == 0:
@@ -35,10 +36,15 @@ func _physics_process(delta: float) -> void:
 		get_tree().paused = true
 	Lab.text = "Zoom: " + str(Cam.zoom)
 	
+	print(Cam.zoom)
 	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
+	
+	# Store the last direction moved in for better combat.
+	if direction != 0:
+		last_dir = direction
+	
 	# Jump Logic (Simplified)
 	if (Input.is_action_just_pressed("w") or Input.is_action_just_pressed("ui_accept")):
 		if is_on_floor():
@@ -51,7 +57,7 @@ func _physics_process(delta: float) -> void:
 		store_jump = false
 
 	# Horizontal Movement
-	var direction := Input.get_axis("a", "d")
+	direction = Input.get_axis("a", "d")
 	var current_speed = SPEED
 	if !is_dashing:
 		if direction:
@@ -66,14 +72,24 @@ func _physics_process(delta: float) -> void:
 		perform_dash(direction)
 	
 	move_and_slide()
-	
+
 	# CRITICAL: COMBAT SYSTEM
 	var weapon_spawn_left = $"weapon_spawn_left"
 	var weapon_spawn_right = $"weapon_spawn_right"
 	if Input.is_action_just_pressed("attack"):
 		if weapon_scene == null:
 			return
-		weapon_spawn_left.add_child(weapon_scene.instantiate())
+		elif direction == -1:
+			weapon_spawn_left.add_child(weapon_scene.instantiate())
+		elif direction == 1:
+			weapon_spawn_right.add_child(weapon_scene.instantiate())
+		else:
+			if last_dir == -1:
+				weapon_spawn_left.add_child(weapon_scene.instantiate())
+			elif last_dir == 1:
+				weapon_spawn_right.add_child(weapon_scene.instantiate())
+			else:
+				weapon_spawn_right.add_child(weapon_scene.instantiate())
 	# CRITICAL: END OF COMBAT SYSTEM CODE
 
 func perform_dash(dir):

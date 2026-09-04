@@ -19,14 +19,16 @@ script = ExtResource("1_48xlc")
 position = Vector2(576, 324)
 
 [node name="MainVBOX" type="VBoxContainer" parent="MainCanvas" unique_id=1516892135]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 651.0
+offset_bottom = 648.0
+alignment = 1
 
 [node name="Title" type="Label" parent="MainCanvas/MainVBOX" unique_id=2121465562]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_1ehe0")
 theme_override_font_sizes/font_size = 100
-text = "Master Mayhem"
+text = "Sovereign Gods"
+vertical_alignment = 1
 
 [node name="PlayButton" type="Button" parent="MainCanvas/MainVBOX" unique_id=1019851259]
 layout_mode = 2
@@ -34,6 +36,7 @@ theme_override_fonts/font = ExtResource("2_1ehe0")
 theme_override_font_sizes/font_size = 50
 text = "Play"
 flat = true
+alignment = 0
 
 [node name="QuitButton" type="Button" parent="MainCanvas/MainVBOX" unique_id=1008428551]
 layout_mode = 2
@@ -41,6 +44,7 @@ theme_override_fonts/font = ExtResource("2_1ehe0")
 theme_override_font_sizes/font_size = 50
 text = "Quit"
 flat = true
+alignment = 0
 
 [connection signal="pressed" from="MainCanvas/MainVBOX/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MainCanvas/MainVBOX/QuitButton" to="." method="_on_quit_button_pressed"]

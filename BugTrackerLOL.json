@@ -1,7 +1,5 @@
 {
 	"Player Bugs":{
-		"DeathScreen":["player.gd and death_screen.gd", "The death screen wont FUCKING 
-		DISAPPEAR when main menu is clicked."]
 	},
 	"Gameplay Bugs":{
 		"none :)":"YIPEE"

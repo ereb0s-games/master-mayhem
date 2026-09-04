@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Master Mayhem"
+config/name="Sovereign Gods"
 run/main_scene="uid://bb3vlcyf7eo07"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
@@ -18,6 +18,10 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*uid://bsxpreipbl6qi"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [global_group]
 
